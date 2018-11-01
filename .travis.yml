@@ -1,0 +1,29 @@
+language: go
+
+install:
+  - echo 'Nothing to do.'
+
+jobs:
+  include:
+    - go: "tip"
+      script: ./gobin.test
+    - go: "1.11.1"
+      script: ./gobin.test
+    - go: "1.11"
+      script: ./gobin.test
+    - go: "1.10"
+      script: ./gobin.test
+    - go: "1.9"
+      script: ./gobin.test
+    - go: "1.8"
+      script: ./gobin.test
+    - go: "1.7"
+      script: ./gobin.test
+    - go: "1.6"
+      script: ./gobin.test
+    - go: "1.5"
+      script: ./gobin.test
+    - go: "1.4"
+      script: ./gobin.test
+    - go: "1.3"
+      script: ./gobin.test

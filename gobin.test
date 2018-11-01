@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+gobin="$PWD/gobin"
+
+echo 'Test: Get Latest with default GOBIN'
+pushd $(mktemp -d)
+unset GOBIN
+$gobin 4d63.com/tldr
+$(go env GOPATH)/bin/tldr curl
+$(go env GOPATH)/bin/tldr nvim
+popd
+
+echo 'Test: Get Latest with custom GOBIN'
+pushd $(mktemp -d)
+mkdir bin
+GOBIN=$PWD/bin $gobin 4d63.com/tldr
+./bin/tldr curl
+./bin/tldr nvim
+popd
+
+goversion=$(go version | cut -d' ' -f3 | cut -d'.' -f2)
+if (( goversion >= "11" )) || [ goversion = "devel" ]; then
+  echo 'Test: Get Version'
+  pushd $(mktemp -d)
+  mkdir bin
+  GOBIN=$PWD/bin $gobin 4d63.com/tldr@v1.0.1541055307
+  ./bin/tldr curl
+  ./bin/tldr nvim && exit 1
+  popd
+fi
